@@ -11,6 +11,8 @@ import {
   Text,
   CardFooter,
   Button,
+  Flex,
+  Spacer,
 } from "@chakra-ui/react";
 
 function Payments() {
@@ -46,14 +48,20 @@ function Payments() {
           />
 
           <Stack>
+
             <CardBody>
-              <Heading size="md">{item.name}</Heading>
+              <Flex>   <Heading size="md">{item.guestDetail}</Heading>
+              <Spacer></Spacer>
+              <Heading size="md">{item.cost}</Heading>
+               </Flex>
+           
+
 
               <Text py="2">{item.description}</Text>
             </CardBody>
 
             <CardFooter>
-              <Button variant="solid" colorScheme="white" bg="#ff6347">
+              <Button variant="solid" colorScheme="blue" bg="#ff6347">
                 {/* Book{item.name} */}
                 Select Room
               </Button>
