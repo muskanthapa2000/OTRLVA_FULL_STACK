@@ -9,14 +9,16 @@ import {
   Grid,
   theme,
 } from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
+// import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
 import Navbar from './components/MainComp/Navbar';
+import Footer from './components/MainComp/Footer';
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <Navbar/>
+      <Footer/>
     </ChakraProvider>
   );
 }
