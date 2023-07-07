@@ -101,7 +101,7 @@ function Discover() {
             transform: "scale(1.1)",
           }}
         >
-      <Rlink >
+      <Rlink to={`/discover/${e.id}`}>
           <Image
             src={e.url}
             alt="not pic"
