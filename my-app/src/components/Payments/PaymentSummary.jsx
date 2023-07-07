@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Card,
@@ -13,7 +13,6 @@ import {
 import { Link } from "react-router-dom";
 
 function PaymentSummary({
-  selectedItem,
   roomCount,
   totalPrice,
   taxRate,
@@ -26,29 +25,31 @@ function PaymentSummary({
   const [discountedTotalAmount, setDiscountedTotalAmount] = useState(totalAmount);
   const [isCouponApplied, setIsCouponApplied] = useState(false);
 
+  useEffect(() => {
+    // Update payable amount when roomCount or dayCount changes
+    const updatedPayableAmount = totalAmount * roomCount * dayCount;
+    setDiscountedTotalAmount(updatedPayableAmount);
+  }, [roomCount, dayCount]);
+
   const applyCoupon = () => {
     if (couponCode === "OFF30") {
       const discountPercentage = 0.7; // 70% discount
       const discountedAmount = payableAmount * discountPercentage;
-      setDiscountedTotalAmount(discountedAmount);
+      setDiscountedTotalAmount(parseFloat(discountedAmount.toFixed(2)));
       setIsCouponApplied(true);
     }
   };
 
   return (
-    <Box ml="4" width="500px">
+    <Box mr="4" width="400px">
       <Card variant="unstyled" p="4" bg="inherit">
         <Heading size="md">Summary</Heading>
         <Flex align="center" mb="4">
-          {selectedItem && (
-            <>
-              <Text>
-                {selectedItem.guestDetail} × {roomCount} × {dayCount} night
-              </Text>
-              <Spacer />
-              <Text py="2">₹{totalPrice}</Text>
-            </>
-          )}
+          <Text>
+            Room × {roomCount} × {dayCount} night
+          </Text>
+          <Spacer />
+          <Text py="2">₹{totalPrice}</Text>
         </Flex>
         <Flex align="center" mb="4">
           <Text>Tax ({taxRate * 100}%)</Text>
@@ -76,20 +77,19 @@ function PaymentSummary({
           </Button>
         </Flex>
         {isCouponApplied && (
-          <Text color="green.500" mb="4">
-            Coupon is applied!
-          </Text>
+          <>
+            <Flex align="center" mb="4">
+              <Text>Payable Amount</Text>
+              <Spacer />
+              <Text>₹{discountedTotalAmount.toFixed(2)}</Text>
+            </Flex>
+            <Link to="/detail" style={{ textDecoration: "none" }}>
+              <Button colorScheme="green" bg="#e4640d">
+                Pay now
+              </Button>
+            </Link>
+          </>
         )}
-        <Flex align="center" mb="4">
-          <Text>Payable Amount</Text>
-          <Spacer />
-          <Text>₹{discountedTotalAmount.toFixed(2)}</Text>
-        </Flex>
-        <Link to="/details" style={{ textDecoration: "none" }}>
-          <Button colorScheme="blue" bg="#ff6347">
-            Pay now
-          </Button>
-        </Link>
       </Card>
     </Box>
   );

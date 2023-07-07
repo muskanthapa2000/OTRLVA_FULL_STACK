@@ -92,7 +92,7 @@ function GuestInformation() {
               required
             />
           </FormControl>
-          <Button type="submit" colorScheme="blue" mt={4}>
+          <Button type="submit" colorScheme="green" bg="#e4640d;" mt={4}>
             Submit
           </Button>
           {message && <Box color="green" mt={2}>{message}</Box>}
@@ -114,7 +114,7 @@ function GuestInformation() {
           </FormControl>
         </HStack>
         <Link to="/thankyou" style={{ textDecoration: 'none' }}>
-        <Button colorScheme="blue" size="lg" w="100%">
+        <Button colorScheme="green" bg="#e4640d;" size="lg" w="100%">
           Pay Now
         </Button>
         </Link>

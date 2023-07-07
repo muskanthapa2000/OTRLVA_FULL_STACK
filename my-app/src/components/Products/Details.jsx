@@ -233,7 +233,7 @@ function Details() {
         </Grid>
       </Box>
       <Box textAlign="right" marginTop="20px">
-      <Link to="/Payments" style={{ textDecoration: 'none' }}> 
+      <Link to="/payment" style={{ textDecoration: "none" }}>
 
         <Button position="relative" _before={{
           content: "''",

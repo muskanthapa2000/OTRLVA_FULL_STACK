@@ -84,14 +84,14 @@ function Payments() {
     }
   };
 
-  const selectedItem = data.find((item) => item.id === selectedRoom);
+  const selectedItem = data.find((item) => item.id === 1);
   const roomCost = selectedItem?.cost || 0;
   const taxRate = 0.18;
   const dayCount = calculateDayCount();
   const totalPrice = roomCount * roomCost * dayCount;
   const taxAmount = totalPrice * taxRate;
   const totalAmount = totalPrice + taxAmount;
-  const payableAmount = totalAmount ;
+  const payableAmount = totalAmount;
 
   return (
     <Box bg="#e8f0f2" p="4">
@@ -122,10 +122,12 @@ function Payments() {
               </Box>
             </Flex>
           </Flex>
-
-          {data.map((item) => (
+          <Flex>
+            
+          
+          {selectedItem && (
             <Card
-              key={item.id}
+              key={selectedItem.id}
               direction={{ base: "column", sm: "row" }}
               overflow="hidden"
               variant="outline"
@@ -137,18 +139,18 @@ function Payments() {
               <Image
                 objectFit="cover"
                 maxW={{ base: "100%", sm: "200px" }}
-                src={item.url}
-                alt={item.name}
+                src={selectedItem.url}
+                alt={selectedItem.name}
               />
 
               <Stack>
                 <CardBody>
                   <Flex>
-                    <Heading size="md">{item.name}</Heading>
+                    <Heading size="md">{selectedItem.name}</Heading>
                     <Spacer />
-                    <Heading size="md">₹{item.cost}</Heading>
+                    <Heading size="md">₹{selectedItem.cost}</Heading>
                   </Flex>
-                  <Text py="2">{item.description}</Text>
+                  <Text py="2">{selectedItem.description}</Text>
                   <Text>
                     <Icon as={BiKey} mr="2" />
                     <Icon as={BiWifi} mr="2" />
@@ -159,7 +161,7 @@ function Payments() {
                 </CardBody>
 
                 <CardFooter>
-                  {selectedRoom === item.id && roomCount > 0 ? (
+                  {selectedRoom === selectedItem.id && roomCount > 0 ? (
                     <ButtonGroup size="sm" isAttached variant="outline">
                       <IconButton
                         aria-label="Decrement"
@@ -176,10 +178,9 @@ function Payments() {
                   ) : (
                     <Button
                       variant="solid"
-                      colorScheme="blue"
-                      bg="#ff6347"
-                      onClick={() => handleRoomSelect(item.id)}
-                      display={selectedRoom === item.id ? "none" : "block"}
+                      colorScheme="green"
+                      bg="#e4640d;"
+                      onClick={() => handleRoomSelect(selectedItem.id)}
                     >
                       Select Rooms
                     </Button>
@@ -187,22 +188,22 @@ function Payments() {
                 </CardFooter>
               </Stack>
             </Card>
-          ))}
-        </Box>
+          )}
 
-        {selectedRoom && (
-          <PaymentSummary
-            selectedItem={selectedItem}
-            roomCount={roomCount}
-            totalPrice={totalPrice}
-            taxRate={taxRate}
-            taxAmount={taxAmount}
-            totalAmount={totalAmount}
-            payableAmount={payableAmount}
-            dayCount={dayCount}
-          />
-        )}
+{roomCount > 0 && (
+        <PaymentSummary
+          roomCount={roomCount}
+          totalPrice={totalPrice}
+          taxRate={taxRate}
+          taxAmount={taxAmount}
+          totalAmount={totalAmount}
+          payableAmount={payableAmount}
+          dayCount={dayCount}
+        />
+      )}
       </Flex>
+    </Box>
+  </Flex>
     </Box>
   );
 }

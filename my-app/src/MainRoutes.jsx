@@ -11,8 +11,8 @@ const MainRoutes = () => {
         <Routes>
             <Route path='/discover'element={<Discover/>}/>
             <Route path='/discover/:id'element={<Details/>}/>
-            <Route path="/Payments" element={<Payments />} />
-            <Route path="/details" element={<GuestInformation />} />
+            <Route path="/payment" element={<Payments/>} />
+            <Route path="/detail" element={<GuestInformation />} />
             <Route path="/thankyou" element={<Thankyou />} />
 
         </Routes>
