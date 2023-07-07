@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { BiKey,BiWifi,BiCloset} from "react-icons/bi";
+import {AiOutlineCoffee} from "react-icons/ai";
+import {MdLocalParking} from "react-icons/md";
+
+
+
 import axios from "axios";
 import {
   Card,
@@ -13,13 +19,14 @@ import {
   Button,
   Flex,
   Spacer,
+  Icon
 } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
+import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 
 function Payments() {
   const [data, setData] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
-  const [roomCount, setRoomCount] = useState(1);
+  const [roomCount, setRoomCount] = useState(0);
 
   useEffect(() => {
     fetchData();
@@ -36,6 +43,7 @@ function Payments() {
 
   const handleRoomSelect = (room) => {
     setSelectedRoom(room);
+    setRoomCount(1);
   };
 
   const handleIncrement = () => {
@@ -43,7 +51,12 @@ function Payments() {
   };
 
   const handleDecrement = () => {
-    setRoomCount((prevCount) => (prevCount > 1 ? prevCount - 1 : prevCount));
+    if (roomCount === 1) {
+      setSelectedRoom(null);
+      setRoomCount(0);
+    } else {
+      setRoomCount((prevCount) => prevCount - 1);
+    }
   };
 
   return (
@@ -70,16 +83,23 @@ function Payments() {
                 <Heading size="md">₹{item.cost}</Heading>
               </Flex>
               <Text py="2">{item.description}</Text>
+              <Text>
+              <Icon as={BiKey} mr="2"  /> 
+              <Icon as={BiWifi} mr="2"/>
+              <Icon as={BiCloset} mr="2"/>
+              <Icon as={AiOutlineCoffee} />
+              <Icon as={MdLocalParking}/>
+
+              </Text>
             </CardBody>
 
             <CardFooter>
-              {selectedRoom === item.id ? (
+              {selectedRoom === item.id && roomCount > 0 ? (
                 <ButtonGroup size="sm" isAttached variant="outline">
                   <IconButton
                     aria-label="Decrement"
-                    icon={<AddIcon />}
+                    icon={<MinusIcon />}
                     onClick={handleDecrement}
-                    disabled={roomCount === 1}
                   />
                   <Button>{roomCount}</Button>
                   <IconButton
@@ -94,8 +114,9 @@ function Payments() {
                   colorScheme="blue"
                   bg="#ff6347"
                   onClick={() => handleRoomSelect(item.id)}
+                  display={selectedRoom === item.id ? "none" : "block"}
                 >
-                  Select Room
+                  Select Rooms
                 </Button>
               )}
             </CardFooter>
