@@ -22,7 +22,7 @@ function Discover() {
   }, [searchKey, currentPage, sortOrder]);
 
   const fetchData = () => {
-    const queryParameters = `Country_like=${searchKey}&_page=${currentPage}&_limit=6${sortOrder ? `&_sort=cost&_order=${sortOrder}` : ""}`;
+    const queryParameters = `Country_like=${searchKey}&_page=${currentPage}&_limit=9${sortOrder ? `&_sort=cost&_order=${sortOrder}` : ""}`;
     const apiUrl = `https://trevelioussite.onrender.com/destination?${queryParameters}`;
 
     axios
@@ -31,7 +31,7 @@ function Discover() {
         console.log(response.data);
         setData(response.data);
         const totalCount = Number(response.headers["x-total-count"]);
-        const calculatedTotalPages = Math.ceil(totalCount / 6);
+        const calculatedTotalPages = Math.ceil(totalCount / 9);
         setTotalPages(calculatedTotalPages);
       })
       .catch((error) => {
@@ -101,7 +101,7 @@ function Discover() {
             transform: "scale(1.1)",
           }}
         >
-      <Rlink >
+      <Rlink to={`/discover/:${e.id}`} >
           <Image
             src={e.url}
             alt="not pic"
@@ -109,7 +109,6 @@ function Discover() {
             width="100%"
             height="100%"
             sx={cardStyles}
-
           />
       </Rlink>
         
@@ -121,12 +120,27 @@ function Discover() {
             padding="4"
             color="white"
             fontWeight="bold"
+            // fontSize="xl"
             // bg="rgba(0, 0, 0, 0.5)"
-            opacity={0.8}
+            // opacity={}
             transition="opacity 0.3s"
           >
             {e.name}
           </Text>
+          <Text
+        position="absolute"
+        bottom="0"
+        right="0"
+        padding="4"
+        color="white"
+        fontWeight="bold"
+        opacity={0.9}
+        transition="opacity 0.3s"
+        fontSize="xl"
+        bg="rgba(0, 0, 0, 0.5)"
+      >
+       &#8377; {e.cost}
+      </Text>
         </Box>
       ))}
     </Box>
