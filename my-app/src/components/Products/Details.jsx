@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Box, Heading, Text, Button, Center,  Image, Grid, GridItem, Flex } from '@chakra-ui/react';
 import { BiLockAlt, BiWifi, BiWind, BiCoffee, BiDollarCircle, BiBed, BiCar, BiDroplet, BiCreditCard, BiTime, BiGame, BiWorld, BiDoughnutChart, BiWater, BiGroup,  BiCube,  } from 'react-icons/bi';
 import details from './details.css';
 import { useParams } from 'react-router-dom';
+import {useState} from 'react'
 
 function Details() {
-  const {id}= useParams()
+  const [data,setData]= useState([]);
+  const {id}= useParams();
+
+  axios
+      .get(`https://trevelioussite.onrender.com/destination/${id}`)
+      .then((response) => {
+        console.log(response.data);
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching movies:", error);
+      });
+
   console.log(id)
   return (
     <div>
