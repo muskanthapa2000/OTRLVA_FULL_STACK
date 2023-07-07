@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import {
   FormLabel,
@@ -98,6 +98,10 @@ export const Signup = ({ onClose }) => {
     }
   };
 
+//   useEffect(()=>{
+//      localStorage.setItem("userEmail",userDetails.firstName)
+//   },[])
+
   return (
     <Box className="model_signup" maxW={"40%"}
     boxShadow={"rgba(0, 0, 0, 0.35) 0px 5px 15px"}
@@ -107,7 +111,8 @@ export const Signup = ({ onClose }) => {
         Create an Account
       </Heading>
       <br />
-      <form ref={form} onSubmit={sendEmail} >
+      <form ref={form} onSubmit={sendEmail}
+       >
         <FormLabel mb={"2px"}> Email </FormLabel>
         <Input
           mb={"10px"}
@@ -115,6 +120,7 @@ export const Signup = ({ onClose }) => {
           name="user_email"
           placeholder="Email"
           focusBorderColor="orange.600"
+        
           required
           onChange={(e) => setemail(e.target.value)}
         />
@@ -127,6 +133,7 @@ export const Signup = ({ onClose }) => {
           name="user_name"
           placeholder="First Name"
           focusBorderColor="orange.600"
+       
           required
           onChange={(e) => setfirstName(e.target.value)}
         />
@@ -137,6 +144,7 @@ export const Signup = ({ onClose }) => {
           mb={"10px"}
           type="text"
           placeholder="Last Name"
+      
           required
           focusBorderColor="orange.600"
           onChange={(e) => setlastName(e.target.value)}
@@ -149,6 +157,7 @@ export const Signup = ({ onClose }) => {
           type="text"
           placeholder="Contact Info"
           required
+        
           focusBorderColor="orange.600"
           onChange={(e) => setcontact(e.target.value)}
         />
@@ -161,6 +170,7 @@ export const Signup = ({ onClose }) => {
             type={show ? "text" : "password"}
             placeholder="Create Password"
             required
+            
             name="user_password"
             focusBorderColor="orange.600"
             onChange={(e) => setpassword(e.target.value)}
@@ -170,7 +180,9 @@ export const Signup = ({ onClose }) => {
               h="1.75rem"
               size="sm"
               onClick={handleClick}
+         
               colorScheme="orange"
+            
             >
               {show ? "Hide" : "Show"}
             </Button>
@@ -180,7 +192,8 @@ export const Signup = ({ onClose }) => {
         <br />
         <div>
           <div className="item_center">
-            <Checkbox colorScheme="orange" required fontSize={{base:"xs", sm:'sm', md:'md'}}>
+            <Checkbox colorScheme="orange" required fontSize={{base:"xs", sm:'sm', md:'md'}}
+            >
               I Accept The{" "}
               <Link className="hover_text_color" fontSize={{base:"xs", sm:'sm', md:'md'}}>
                 Specialized Terms & Conditions
@@ -199,6 +212,7 @@ export const Signup = ({ onClose }) => {
         <ButtonGroup variant="outline" width="100%">
           <Button type="submit" colorScheme="orange" className="btn"
         //   onClick={()=>{navigate('/login')}}
+     
           >
             {" "}
             Create Account{" "}

@@ -22,15 +22,34 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons';
 import{ TiLocation} from 'react-icons/ti'
-
+import { useEffect } from 'react';
 
 import {Link as Rlink} from 'react-router-dom'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ALL_ROUTE, ONLY_LOGIN } from '../Redux/actionTypes';
+import { getCurrentUser } from '../Redux/action';
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
 
+
+
+ 
+//  const currUser = useSelector((store) => {
+//     return store.accountReducer.currUser;
+//   });
+    // useEffect(() => {
+      // const userEmail = JSON.parse(localStorage.getItem("userEmail"));
+      // if (userEmail) {
+      //   console.log(userEmail)
+      //   let currUser = { email : userEmail };
+      //   getCurrentUser(currUser, dispatch);
+      // }
+    // }, []);
+
+  
+    // console.log(currUser)
+    
  const dispatch= useDispatch()
   const handleLogin=()=>{
     dispatch({type:ONLY_LOGIN})
@@ -104,7 +123,10 @@ export default function WithSubnavigation() {
             // href={'/login'}
             onClick={()=>{handleLogin()}}
             >
-            Log In
+              {/* {
+                currUser.email && "Log In"
+              } */}
+           Log In
           </Button>
           <Button
           onClick={()=>{handleRegister()}}
@@ -124,7 +146,10 @@ export default function WithSubnavigation() {
               bg: 'orange.300',
 
             }}>
-            Register
+          {/* {
+            currUser.payload && " Register"
+          }  */}
+          Register
           </Button>
         </Stack>
       </Flex>
