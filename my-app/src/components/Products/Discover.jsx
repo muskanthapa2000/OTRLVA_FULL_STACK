@@ -79,6 +79,7 @@ function Discover() {
 
         <Center>
           <HStack spacing={4}>
+            <h3>Order of cost:- </h3>
             <Button onClick={handleAscendingSort}>Ascending</Button>
             <Button onClick={handleDescendingSort}>Descending</Button>
             <Button onClick={handleNoOrderSort}>No Order</Button>
