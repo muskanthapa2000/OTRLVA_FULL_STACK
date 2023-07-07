@@ -65,67 +65,69 @@ function Discover() {
   };
 
   return (
-    <div style={{ width: '90%', margin: 'auto' }} >
-      <Flex direction="column" align="center" py={6}>
-        <Input
-          data-testid="search_key"
-          type="text"
-          placeholder="Search Place"
-          value={searchKey}
-          onChange={handleSearchChange}
-          width="300px"
-          mb={4}
-        />
+    // <div style={{ width: '90%', margin: 'auto' }} >
+    //   <Flex direction="column" align="center" py={6}>
+    //     <Input
+    //       data-testid="search_key"
+    //       type="text"
+    //       placeholder="Search Place"
+    //       value={searchKey}
+    //       onChange={handleSearchChange}
+    //       width="300px"
+    //       mb={4}
+    //     />
 
-        <Center>
-          <HStack spacing={4}>
-            <Button onClick={handleAscendingSort}>Ascending</Button>
-            <Button onClick={handleDescendingSort}>Descending</Button>
-            <Button onClick={handleNoOrderSort}>No Order</Button>
-          </HStack>
-        </Center>
-      </Flex>
+    //     <Center>
+    //       <HStack spacing={4}>
+    //         <Button onClick={handleAscendingSort}>Ascending</Button>
+    //         <Button onClick={handleDescendingSort}>Descending</Button>
+    //         <Button onClick={handleNoOrderSort}>No Order</Button>
+    //       </HStack>
+    //     </Center>
+    //   </Flex>
 
-      <div >
+    //   <div >
 
      
-        </Box>
+    //     </Box>
 
-      </div>
-      <Center className="pagination">
-        <Box paddingTop="30px">
-          <HStack spacing={4}>
-            {currentPage > 1 && (
-              <Button
-                disabled={currentPage === 1}
-                onClick={handlePreviousPage}
-                colorScheme="teal"
-                _hover={{
-                  backgroundColor: 'teal.500',
-                  color: 'white',
-                }}
-              >
-                Previous
-              </Button>
-            )}
-            <Button> {currentPage}</Button>
-            {currentPage < totalPages && (
-              <Button
-                disabled={totalPages === currentPage}
-                onClick={handleNextPage}
-                colorScheme="teal"
-                _hover={{
-                  backgroundColor: 'teal.500',
-                  color: 'white',
-                }}
-              >
-                Next
-              </Button>
-            )}
-          </HStack>
-        </Box>
-      </Center>
-    </div>
+    //   </div>
+    //   <Center className="pagination">
+    //     <Box paddingTop="30px">
+    //       <HStack spacing={4}>
+    //         {currentPage > 1 && (
+    //           <Button
+    //             disabled={currentPage === 1}
+    //             onClick={handlePreviousPage}
+    //             colorScheme="teal"
+    //             _hover={{
+    //               backgroundColor: 'teal.500',
+    //               color: 'white',
+    //             }}
+    //           >
+    //             Previous
+    //           </Button>
+    //         )}
+    //         <Button> {currentPage}</Button>
+    //         {currentPage < totalPages && (
+    //           <Button
+    //             disabled={totalPages === currentPage}
+    //             onClick={handleNextPage}
+    //             colorScheme="teal"
+    //             _hover={{
+    //               backgroundColor: 'teal.500',
+    //               color: 'white',
+    //             }}
+    //           >
+    //             Next
+    //           </Button>
+    //         )}
+    //       </HStack>
+    //     </Box>
+    //   </Center>
+    // </div>
+
+    <></>
   );
 }
 
