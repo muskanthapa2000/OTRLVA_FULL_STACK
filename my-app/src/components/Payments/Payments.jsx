@@ -91,7 +91,7 @@ function Payments() {
   const totalPrice = roomCount * roomCost * dayCount;
   const taxAmount = totalPrice * taxRate;
   const totalAmount = totalPrice + taxAmount;
-  const payableAmount = totalAmount / 2;
+  const payableAmount = totalAmount ;
 
   return (
     <Box bg="#e8f0f2" p="4">

@@ -1,5 +1,15 @@
-import React from "react";
-import { Box, Card, Heading, Text, Flex, Spacer, Button } from "@chakra-ui/react";
+import React, { useState } from "react";
+import {
+  Box,
+  Card,
+  Heading,
+  Text,
+  Flex,
+  Spacer,
+  Button,
+  FormControl,
+  Input,
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 function PaymentSummary({
@@ -10,9 +20,21 @@ function PaymentSummary({
   taxAmount,
   totalAmount,
   payableAmount,
-  dayCount={dayCount}
-
+  dayCount,
 }) {
+  const [couponCode, setCouponCode] = useState("");
+  const [discountedTotalAmount, setDiscountedTotalAmount] = useState(totalAmount);
+  const [isCouponApplied, setIsCouponApplied] = useState(false);
+
+  const applyCoupon = () => {
+    if (couponCode === "OFF30") {
+      const discountPercentage = 0.7; // 70% discount
+      const discountedAmount = payableAmount * discountPercentage;
+      setDiscountedTotalAmount(discountedAmount);
+      setIsCouponApplied(true);
+    }
+  };
+
   return (
     <Box ml="4" width="500px">
       <Card variant="unstyled" p="4" bg="inherit">
@@ -41,18 +63,32 @@ function PaymentSummary({
         <Flex align="center" mb="4">
           <Text>Coupon</Text>
           <Spacer />
-          <Text>OFF50</Text>
+          <FormControl w="230px">
+            <Input 
+              type="text"
+              value={couponCode}
+              onChange={(e) => setCouponCode(e.target.value)}
+              placeholder="Enter coupon code"
+            />
+          </FormControl>
+          <Button ml="2" onClick={applyCoupon}>
+            Apply
+          </Button>
         </Flex>
+        {isCouponApplied && (
+          <Text color="green.500" mb="4">
+            Coupon is applied!
+          </Text>
+        )}
         <Flex align="center" mb="4">
           <Text>Payable Amount</Text>
           <Spacer />
-          <Text>₹{payableAmount.toFixed(2)}</Text>
+          <Text>₹{discountedTotalAmount.toFixed(2)}</Text>
         </Flex>
-        <Link to="/details" style={{ textDecoration: 'none' }}>
-
-        <Button colorScheme="blue" bg="#ff6347">
-          Pay now
-        </Button>
+        <Link to="/details" style={{ textDecoration: "none" }}>
+          <Button colorScheme="blue" bg="#ff6347">
+            Pay now
+          </Button>
         </Link>
       </Card>
     </Box>
