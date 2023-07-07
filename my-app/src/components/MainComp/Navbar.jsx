@@ -25,9 +25,20 @@ import{ TiLocation} from 'react-icons/ti'
 
 
 import {Link as Rlink} from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { ALL_ROUTE, ONLY_LOGIN } from '../Redux/actionTypes';
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
+
+ const dispatch= useDispatch()
+  const handleLogin=()=>{
+    dispatch({type:ONLY_LOGIN})
+  }
+
+  const handleRegister=()=>{
+    dispatch({type:ONLY_LOGIN})
+  }
 
   return (
     <Box>
@@ -91,10 +102,12 @@ export default function WithSubnavigation() {
             color={"whiteAlpha.700"}
             variant={'link'}
             // href={'/login'}
+            onClick={()=>{handleLogin()}}
             >
             Log In
           </Button>
           <Button
+          onClick={()=>{handleRegister()}}
              as={Rlink}
              to={'/register'}
             display={{ base: 'none', md: 'inline-flex' }}
@@ -109,6 +122,7 @@ export default function WithSubnavigation() {
             style={{backgroundImage: "linear-gradient(to right, #e26109, #e9701c, #ef7e2c, #f68c3a, #fc9949)"}}
             _hover={{
               bg: 'orange.300',
+
             }}>
             Register
           </Button>
