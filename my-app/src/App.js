@@ -12,13 +12,20 @@ import {
 // import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
 import Navbar from './components/MainComp/Navbar';
+
 import Footer from './components/MainComp/Footer';
+
+
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <Navbar/>
+
       <Footer/>
+
+
+
     </ChakraProvider>
   );
 }
