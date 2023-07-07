@@ -4,7 +4,10 @@ import { Box, Heading, Text, Button, Center,  Image, Grid, GridItem, Flex } from
 import { BiLockAlt, BiWifi, BiWind, BiCoffee, BiDollarCircle, BiBed, BiCar, BiDroplet, BiCreditCard, BiTime, BiGame, BiWorld, BiDoughnutChart, BiWater, BiGroup,  BiCube,  } from 'react-icons/bi';
 import details from './details.css';
 import { useParams } from 'react-router-dom';
+
 import axios from 'axios'
+=======
+
 
 function Details() {
   const [data,setData]= useState([]);
