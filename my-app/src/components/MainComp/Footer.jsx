@@ -114,7 +114,7 @@ export default function Footer() {
               © 2023 OTRLVS. All rights reserved
             </Text>
 
-            
+
             <Stack direction={'row'} spacing={6}>
               <SocialButton label={'Twitter'} href={'#'}>
                 <FaTwitter />
@@ -147,6 +147,7 @@ export default function Footer() {
             <ListHeader>Stay up to date</ListHeader>
             <Stack direction={'row'}>
               <Input
+              value={input}
               onChange={(e)=>{setInput(e.target.value)}}
                 placeholder={'Your email address'}
                 bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
