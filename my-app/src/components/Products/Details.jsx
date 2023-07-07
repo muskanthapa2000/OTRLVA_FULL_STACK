@@ -6,7 +6,19 @@ import details from './details.css';
 import { useParams } from 'react-router-dom';
 
 function Details() {
-  const {id}= useParams()
+  const {id}= useParams();
+
+  axios
+      .get(`https://trevelioussite.onrender.com/destination/${id}`)
+      .then((response) => {
+        console.log(response.data);
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching movies:", error);
+      });
+
+
   console.log(id)
   return (
     <div>
