@@ -108,7 +108,7 @@ function Payments() {
               <Stack>
                 <CardBody>
                   <Flex>
-                    <Heading size="md">{item.guestDetail}</Heading>
+                    <Heading size="md">{item.name}</Heading>
                     <Spacer />
                     <Heading size="md">₹{item.cost}</Heading>
                   </Flex>

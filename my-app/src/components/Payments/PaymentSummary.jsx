@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Card, Heading, Text, Flex, Spacer, Button } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 function PaymentSummary({
   selectedItem,
@@ -45,10 +46,12 @@ function PaymentSummary({
           <Spacer />
           <Text>₹{payableAmount.toFixed(2)}</Text>
         </Flex>
+        <Link to="/details" style={{ textDecoration: 'none' }}>
 
         <Button colorScheme="blue" bg="#ff6347">
           Pay now
         </Button>
+        </Link>
       </Card>
     </Box>
   );
