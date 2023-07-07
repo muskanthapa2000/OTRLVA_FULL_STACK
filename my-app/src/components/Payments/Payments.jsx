@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { BiKey, BiWifi, BiCloset } from "react-icons/bi";
-import { AiOutlineCoffee } from "react-icons/ai";
-import { MdLocalParking } from "react-icons/md";
 import axios from "axios";
 import {
   Box,
@@ -19,7 +16,14 @@ import {
   Spacer,
   Icon,
 } from "@chakra-ui/react";
+import { BiKey, BiWifi, BiCloset } from "react-icons/bi";
+import { AiOutlineCoffee } from "react-icons/ai";
+import { MdLocalParking } from "react-icons/md";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import PaymentSummary from "./PaymentSummary";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+
 
 function Payments() {
   const [data, setData] = useState([]);
@@ -59,20 +63,30 @@ function Payments() {
     }
   };
 
-  //  total price and tax amount based on room count
   const selectedItem = data.find((item) => item.id === selectedRoom);
   const roomCost = selectedItem?.cost || 0;
   const taxRate = 0.18;
   const totalPrice = roomCount * roomCost;
   const taxAmount = totalPrice * taxRate;
   const totalAmount = totalPrice + taxAmount;
-  const payableAmount= (totalAmount)/2;
+  const payableAmount = totalAmount / 2;
+
   return (
     <Box bg="#e8f0f2" p="4">
       <Flex>
         <Box flex="1 0 auto">
-        <Heading size='lg'ml="24"mb="4">Book Your stay</Heading>
-        <Text ml="24" mb="10">Select from a range of beautiful rooms</Text>
+          <Flex>
+            <Box>
+              <Heading size="lg" ml="24" mb="4">
+                Book Your stay
+              </Heading>
+              <Text ml="24" mb="10">
+                Select from a range of beautiful rooms
+              </Text>
+            </Box>
+            <Box>{/* Add DatePicker here */}</Box>
+          </Flex>
+
           {data.map((item) => (
             <Card
               key={item.id}
@@ -141,46 +155,15 @@ function Payments() {
         </Box>
 
         {selectedRoom && (
-          <Box ml="4" width="500px">
-            <Card variant="unstyled" p="4" bg="inherit">
-              <Heading size="md">Summary</Heading>
-              <Flex align="center" mb="4">
-                {selectedItem && (
-                  <>
-                    <Text>
-                      {selectedItem.guestDetail} × {roomCount}
-                    </Text>
-                    <Spacer />
-                    <Text py="2">₹{totalPrice}</Text>
-                  </>
-                )}
-              </Flex>
-              <Flex align="center" mb="4">
-                <Text>Tax ({taxRate * 100}%)</Text>
-                <Spacer />
-                <Text>₹{taxAmount.toFixed(2)}</Text>
-              </Flex>
-              <Flex align="center" mb="4">
-                <Text>Total Amount</Text>
-                <Spacer />
-                <Text>₹{totalAmount.toFixed(2)}</Text>
-              </Flex>
-              <Flex align="center" mb="4">
-                <Text>Coupon</Text>
-                <Spacer />
-                <Text>OFF50</Text>
-              </Flex>
-              <Flex align="center" mb="4">
-                <Text>Payable Amount</Text>
-                <Spacer />
-                <Text>₹{payableAmount.toFixed(2)}</Text>
-              </Flex>
-
-              <Button colorScheme="blue" bg="#ff6347">
-                Pay now
-              </Button>
-            </Card>
-          </Box>
+          <PaymentSummary
+            selectedItem={selectedItem}
+            roomCount={roomCount}
+            totalPrice={totalPrice}
+            taxRate={taxRate}
+            taxAmount={taxAmount}
+            totalAmount={totalAmount}
+            payableAmount={payableAmount}
+          />
         )}
       </Flex>
     </Box>

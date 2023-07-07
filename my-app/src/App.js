@@ -12,6 +12,8 @@ import {
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
 import Payments from './components/Payments/Payments';
+import Checkout from './components/Payments/GuestInfromation';
+import GuestInformation from './components/Payments/GuestInfromation';
 
 function App() {
   return (
@@ -36,7 +38,8 @@ function App() {
           </VStack>
         </Grid>
       </Box> */}
-      <Payments/>
+      {/* <Payments/> */}
+      <GuestInformation/>
     </ChakraProvider>
   );
 }
