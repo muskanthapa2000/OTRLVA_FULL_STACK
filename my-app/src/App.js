@@ -39,7 +39,7 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
 
-      {
+      {/* {
         store.loginReducer.isLogin?
         <Routes><Route path='/login'element={<Login/>}/></Routes>:<><Navbar/>
       <MainRoutes/>
@@ -51,7 +51,10 @@ function App() {
         <Routes><Route path='/register'element={<Signup/>}/></Routes>:<><Navbar/>
       <MainRoutes/>
       <Footer/></>
-      }
+      } */}
+      <Navbar/>
+      <MainRoutes/>
+      <Footer/>
 
     </ChakraProvider>
   );

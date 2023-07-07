@@ -78,16 +78,17 @@ export const Login = () => {
     }
 
     return (
-        <Box>
+        <Box style={{marginBottom:"30px"}}>
             <Box className="main_form_div"  w={{base:"90%",sm:"80%", md:'60%', lg:"40%"}} m='10px auto' p={{base:"25px"}}
             //  border={'1px solid red'}
              bg={null} boxShadow={"rgba(0, 0, 0, 0.35) 0px 5px 15px"} >
                 <Heading fontWeight="600" fontSize="32px" >Sign in to your Account</Heading>
                 <br />
-                <form onSubmit={handleSubmit} >
+                <form onSubmit={handleSubmit}
+                 >
                 <FormControl>
                     <FormLabel mb={'5px'}> Email </FormLabel>
-                    <Input mb={'10px'} type="email" placeholder="Email" focusBorderColor='yellow.600' required onChange={(e) => setemail(e.target.value)} />
+                    <Input mb={'10px'} type="email" placeholder="Email" focusBorderColor='yellow.600'  required onChange={(e) => setemail(e.target.value)} />
                     <br />
 
                     <FormLabel mb={'5px'}> Password </FormLabel>
@@ -97,6 +98,7 @@ export const Login = () => {
                             placeholder='Password'
                             focusBorderColor='yellow.600'
                             required
+                           
                             onChange={(e) => setpassword(e.target.value)}
                         />
                         <InputRightElement width='4.5rem' >
