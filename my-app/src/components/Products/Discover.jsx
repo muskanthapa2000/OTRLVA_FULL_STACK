@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Box, Image, Text,useStyleConfig,Button ,HStack ,Center,Flex,Input} from "@chakra-ui/react";
-
+import { Link as Rlink } from "react-router-dom";
 
 
 function Discover() {
@@ -65,7 +65,7 @@ function Discover() {
   };
 
   return (
-    <div data-testid="dashboard">
+    <div style={{width: '90%', margin:'auto'}} >
        <Flex direction="column" align="center" py={6}>
         <Input
           data-testid="search_key"
@@ -101,6 +101,7 @@ function Discover() {
             transform: "scale(1.1)",
           }}
         >
+      <Rlink >
           <Image
             src={e.url}
             alt="not pic"
@@ -108,7 +109,10 @@ function Discover() {
             width="100%"
             height="100%"
             sx={cardStyles}
+
           />
+      </Rlink>
+        
           <Text
             position="absolute"
             bottom="0"
@@ -133,6 +137,7 @@ function Discover() {
         <HStack spacing={4}>
           {currentPage > 1 && (
             <Button
+            disabled={currentPage===1}
               onClick={handlePreviousPage}
               colorScheme="teal"
               _hover={{
@@ -143,8 +148,10 @@ function Discover() {
               Previous
             </Button>
           )}
+         <Button> {currentPage}</Button>
           {currentPage < totalPages && (
             <Button
+            disabled={totalPages===currentPage}
               onClick={handleNextPage}
               colorScheme="teal"
               _hover={{

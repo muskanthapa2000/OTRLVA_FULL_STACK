@@ -2,14 +2,19 @@ import React from 'react';
 
 import { Box, Heading, Text, Button, Center,  Image, Grid, GridItem, Flex } from '@chakra-ui/react';
 import { BiLockAlt, BiWifi, BiWind, BiCoffee, BiDollarCircle, BiBed, BiCar, BiDroplet, BiCreditCard, BiTime, BiGame, BiWorld, BiDoughnutChart, BiWater, BiGroup,  BiCube,  } from 'react-icons/bi';
+import details from './details.css';
+import { useParams } from 'react-router-dom';
 
 function Details() {
+  const {id}= useParams()
+  console.log(id)
   return (
-    <div style={{ width: '80%', margin: '0 auto' }}>
-      <div style={{ position: 'relative' }}>
+    <div>
+       <div style={{ position: 'relative' }}>
         <Image
           src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-46761225/original/11058c0d-fac8-4035-8f16-8b3abe7441cd.jpeg?im_w=960"
           alt="N"
+          style={{width:'100%'}}
         />
         <Box
           position="absolute"
@@ -26,6 +31,10 @@ function Details() {
           </Heading>
         </Box>
       </div>
+     
+
+  
+    <div style={{ width: '80%', margin: '0 auto' }}>
      
       <Text fontSize="l" textAlign="center" mb="4" width="70%" margin="auto" paddingBottom="30px">
         YE DISCRIPTION HO GYA CHOTE VALA Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis, quis neque
@@ -226,6 +235,7 @@ function Details() {
           BOOK NOW
         </Button>
       </Box>
+    </div>
     </div>
   );
 }
