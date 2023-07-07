@@ -22,16 +22,18 @@ import { MdLocalParking } from "react-icons/md";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PaymentSummary from "./PaymentSummary";
-import { AddIcon, MinusIcon } from "@chakra-ui/icons";
-
+import { AddIcon, MinusIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 
 function Payments() {
   const [data, setData] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [roomCount, setRoomCount] = useState(0);
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
+  const [selectedEndDate, setSelectedEndDate] = useState(null);
 
   useEffect(() => {
     fetchData();
+    setDefaultDates();
   }, []);
 
   const fetchData = async () => {
@@ -43,6 +45,25 @@ function Payments() {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
+  };
+
+  const setDefaultDates = () => {
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    setSelectedStartDate(today);
+    setSelectedEndDate(tomorrow);
+  };
+
+  const calculateDayCount = () => {
+    if (selectedStartDate && selectedEndDate) {
+      const start = new Date(selectedStartDate);
+      const end = new Date(selectedEndDate);
+      const timeDiff = Math.abs(end.getTime() - start.getTime());
+      const dayCount = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      return dayCount;
+    }
+    return 0;
   };
 
   const handleRoomSelect = (room) => {
@@ -66,7 +87,8 @@ function Payments() {
   const selectedItem = data.find((item) => item.id === selectedRoom);
   const roomCost = selectedItem?.cost || 0;
   const taxRate = 0.18;
-  const totalPrice = roomCount * roomCost;
+  const dayCount = calculateDayCount();
+  const totalPrice = roomCount * roomCost * dayCount;
   const taxAmount = totalPrice * taxRate;
   const totalAmount = totalPrice + taxAmount;
   const payableAmount = totalAmount / 2;
@@ -84,7 +106,21 @@ function Payments() {
                 Select from a range of beautiful rooms
               </Text>
             </Box>
-            <Box>{/* Add DatePicker here */}</Box>
+            <Flex mt="5" ml="2">
+              <Box mr="2">
+                <DatePicker
+                  selected={selectedStartDate}
+                  onChange={(date) => setSelectedStartDate(date)}
+                />
+              </Box>
+              <ArrowForwardIcon />
+              <Box ml="2">
+                <DatePicker
+                  selected={selectedEndDate}
+                  onChange={(date) => setSelectedEndDate(date)}
+                />
+              </Box>
+            </Flex>
           </Flex>
 
           {data.map((item) => (
@@ -163,6 +199,7 @@ function Payments() {
             taxAmount={taxAmount}
             totalAmount={totalAmount}
             payableAmount={payableAmount}
+            dayCount={dayCount}
           />
         )}
       </Flex>

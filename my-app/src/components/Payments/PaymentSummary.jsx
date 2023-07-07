@@ -10,6 +10,8 @@ function PaymentSummary({
   taxAmount,
   totalAmount,
   payableAmount,
+  dayCount={dayCount}
+
 }) {
   return (
     <Box ml="4" width="500px">
@@ -19,7 +21,7 @@ function PaymentSummary({
           {selectedItem && (
             <>
               <Text>
-                {selectedItem.guestDetail} × {roomCount}
+                {selectedItem.guestDetail} × {roomCount} × {dayCount} night
               </Text>
               <Spacer />
               <Text py="2">₹{totalPrice}</Text>
