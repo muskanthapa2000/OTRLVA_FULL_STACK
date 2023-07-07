@@ -278,14 +278,14 @@ const NAV_ITEMS: Array<NavItem> = [
     label: 'Discover',
     children: [
       {
-        label: 'Explore Design Work',
+        label: 'Explore Your Destination',
         subLabel: 'Trending Design to inspire you',
-        href: '#',
+        href: '/discover',
       },
       {
         label: 'New & Noteworthy',
         subLabel: 'Up-and-coming Designers',
-        href: '#',
+        href: '/discover',
       },
     ],
   },
