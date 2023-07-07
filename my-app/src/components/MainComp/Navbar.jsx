@@ -21,6 +21,8 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from '@chakra-ui/icons';
+import{ TiLocation} from 'react-icons/ti'
+
 
 import {Link as Rlink} from 'react-router-dom'
 
@@ -65,10 +67,10 @@ export default function WithSubnavigation() {
             color={useColorModeValue('orange', 'white')}
             mr={'120px'}
             ml={"55px"}
-            fontSize={'lg'}
+            fontSize={'xl'}
             fontWeight={800}
             >
-            TRLVS
+       <TiLocation size={30} style={{marginLeft:"-25px",marginBottom:"-33px"}}/>   TRLVS
           </Text>
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
@@ -175,12 +177,12 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
       display={'block'}
       p={2}
       rounded={'md'}
-      _hover={{ bg: useColorModeValue('orange.50', 'gray.900') }}>
+      _hover={{ bg: useColorModeValue('orange.50', 'gray.700') }}>
       <Stack direction={'row'} align={'center'}>
         <Box>
           <Text
             transition={'all .3s ease'}
-            _groupHover={{ color: 'orange.400' }}
+            _groupHover={{ color: 'orange.500' }}
             fontWeight={500}>
             {label}
           </Text>
@@ -276,14 +278,14 @@ const NAV_ITEMS: Array<NavItem> = [
     label: 'Discover',
     children: [
       {
-        label: 'Explore Design Work',
+        label: 'Explore Your Destination',
         subLabel: 'Trending Design to inspire you',
-        href: '#',
+        href: '/discover',
       },
       {
         label: 'New & Noteworthy',
         subLabel: 'Up-and-coming Designers',
-        href: '#',
+        href: '/discover',
       },
     ],
   },

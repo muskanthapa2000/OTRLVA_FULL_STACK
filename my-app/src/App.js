@@ -9,19 +9,32 @@ import {
   Grid,
   theme,
 } from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
+// import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
 import Navbar from './components/MainComp/Navbar';
-// import Details from './components/Products/Details';
 
-// import Details from './components/Products/Details';
+
+
+
+import Footer from './components/MainComp/Footer';
+import MainRoutes from './MainRoutes';
+
+
+
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <Navbar/>
+
       
-     {/* <Details></Details> */}
+ 
+
+<MainRoutes/>
+      <Footer/>
+
+
+
 
     </ChakraProvider>
   );
