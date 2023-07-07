@@ -59,7 +59,7 @@ function Payments() {
     }
   };
 
-  // Calculate total price and tax amount based on room count
+  //  total price and tax amount based on room count
   const selectedItem = data.find((item) => item.id === selectedRoom);
   const roomCost = selectedItem?.cost || 0;
   const taxRate = 0.18;
@@ -71,7 +71,8 @@ function Payments() {
     <Box bg="#e8f0f2" p="4">
       <Flex>
         <Box flex="1 0 auto">
-          <h1>Book your stay</h1>
+        <Heading size='lg'ml="24"mb="4">Book Your stay</Heading>
+        <Text ml="24" mb="10">Select from a range of beautiful rooms</Text>
           {data.map((item) => (
             <Card
               key={item.id}
@@ -143,7 +144,7 @@ function Payments() {
           <Box ml="4" width="500px">
             <Card variant="unstyled" p="4" bg="inherit">
               <Heading size="md">Summary</Heading>
-              <Flex align="center">
+              <Flex align="center" mb="4">
                 {selectedItem && (
                   <>
                     <Text>
@@ -154,22 +155,22 @@ function Payments() {
                   </>
                 )}
               </Flex>
-              <Flex align="center">
+              <Flex align="center" mb="4">
                 <Text>Tax ({taxRate * 100}%)</Text>
                 <Spacer />
                 <Text>₹{taxAmount.toFixed(2)}</Text>
               </Flex>
-              <Flex align="center">
+              <Flex align="center" mb="4">
                 <Text>Total Amount</Text>
                 <Spacer />
                 <Text>₹{totalAmount.toFixed(2)}</Text>
               </Flex>
-              <Flex align="center">
+              <Flex align="center" mb="4">
                 <Text>Coupon</Text>
                 <Spacer />
                 <Text>OFF50</Text>
               </Flex>
-              <Flex align="center">
+              <Flex align="center" mb="4">
                 <Text>Payable Amount</Text>
                 <Spacer />
                 <Text>₹{payableAmount.toFixed(2)}</Text>
