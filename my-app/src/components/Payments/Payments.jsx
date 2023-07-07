@@ -66,7 +66,7 @@ function Payments() {
   const totalPrice = roomCount * roomCost;
   const taxAmount = totalPrice * taxRate;
   const totalAmount = totalPrice + taxAmount;
-
+  const payableAmount= (totalAmount)/2;
   return (
     <Box bg="#e8f0f2" p="4">
       <Flex>
@@ -160,10 +160,21 @@ function Payments() {
                 <Text>₹{taxAmount.toFixed(2)}</Text>
               </Flex>
               <Flex align="center">
-                <Text>Payable now</Text>
+                <Text>Total Amount</Text>
                 <Spacer />
                 <Text>₹{totalAmount.toFixed(2)}</Text>
               </Flex>
+              <Flex align="center">
+                <Text>Coupon</Text>
+                <Spacer />
+                <Text>OFF50</Text>
+              </Flex>
+              <Flex align="center">
+                <Text>Payable Amount</Text>
+                <Spacer />
+                <Text>₹{payableAmount.toFixed(2)}</Text>
+              </Flex>
+
               <Button colorScheme="blue" bg="#ff6347">
                 Pay now
               </Button>
