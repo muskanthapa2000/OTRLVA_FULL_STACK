@@ -10,7 +10,7 @@ import {
   FormControl,
   Input,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link as Rlink} from "react-router-dom";
 
 function PaymentSummary({
   roomCount,
@@ -83,11 +83,11 @@ function PaymentSummary({
               <Spacer />
               <Text>₹{discountedTotalAmount.toFixed(2)}</Text>
             </Flex>
-            <Link to="/detail" style={{ textDecoration: "none" }}>
-              <Button colorScheme="green" bg="#e4640d">
+            <Rlink to="/payment-details" style={{ textDecoration: "none" }}>
+             <Button colorScheme="green" bg="#e4640d">
                 Pay now
               </Button>
-            </Link>
+            </Rlink>
           </>
         )}
       </Card>
