@@ -8,7 +8,6 @@ import { Login } from './components/MainComp/Login'
 import { Signup } from './components/MainComp/Signup'
 import Payments from './components/Payments/Payments'
 import GuestInfromation from './components/Payments/GuestInfromation'
-import Thankyou from './components/Payments/Thankyou'
 
 const MainRoutes = () => {
  
@@ -28,7 +27,6 @@ const MainRoutes = () => {
             <Route path='/discover/:id'element={<Details/>}/>
             <Route path='/payment/:id'element={<Payments/>}/>
             <Route path='/payment-details'element={<GuestInfromation/>}/>
-            <Route path='/thankyou'element={<Thankyou/>}/>
             <Route path='/login'element={<Login/>}/>
             <Route path='/register'element={<Signup/>}/>
             <Route path="*" element={<HomePage/>}/>
