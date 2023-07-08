@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link as Rlink} from "react-router-dom";
 import {
   Box,
   Flex,
@@ -113,11 +113,11 @@ function GuestInformation() {
             <Input type="text" placeholder="CVV" maxLength={3} />
           </FormControl>
         </HStack>
-        <Link to="/thankyou" style={{ textDecoration: 'none' }}>
+        <Rlink to="/thankyou" style={{ textDecoration: 'none' }}>
         <Button colorScheme="green" bg="#e4640d;" size="lg" w="100%">
           Pay Now
         </Button>
-        </Link>
+        </Rlink>
         
       </Box>
     </Flex>

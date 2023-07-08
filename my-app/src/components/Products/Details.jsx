@@ -5,6 +5,7 @@ import { BiLockAlt, BiWifi, BiWind, BiCoffee, BiDollarCircle, BiBed, BiCar, BiDr
 import details from './details.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios'
+import { Link as Rlink} from 'react-router-dom';
 
 function Details() {
   const [data, setData] = useState([]);
@@ -237,9 +238,9 @@ function Details() {
           </Grid>
         </Box>
         <Box textAlign="right" marginTop="20px">
-        <button className="button">
+       <Rlink to={`/payment/${id}`}> <button className="button">
       Book Now
-    </button>
+    </button></Rlink> 
 </Box>
 
       </div>
