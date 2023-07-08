@@ -88,62 +88,8 @@ function Discover() {
       </Flex>
 
       <div >
-        <Box display="grid" gridTemplateColumns="repeat(3, 1fr)" gap={6}>
-          {data.map((e) => (
-            <Box
-              key={e.id}
-              className="destination-card"
-              // onClick={() => handleImageClick(e.id)}
-              cursor="pointer"
-              borderRadius="md"
-              overflow="hidden"
-              transition="transform 0.3s ease-in-out"
-              _hover={{
-                transform: "scale(1.1)",
-              }}
-            >
-              <Rlink to={`/discover/${e.id}`} >
-                <Image
-                  src={e.url}
-                  alt="not pic"
-                  objectFit="cover"
-                  width="100%"
-                  height="100%"
-                  sx={cardStyles}
-                />
-              </Rlink>
 
-              <Text
-                position="absolute"
-                bottom="0"
-                left="0"
-                width="100%"
-                padding="4"
-                color="white"
-                fontWeight="bold"
-                // fontSize="xl"
-                // bg="rgba(0, 0, 0, 0.5)"
-                // opacity={}
-                transition="opacity 0.3s"
-              >
-                {e.name}
-              </Text>
-              <Text
-                position="absolute"
-                bottom="0"
-                right="0"
-                padding="4"
-                color="white"
-                fontWeight="bold"
-                opacity={0.9}
-                transition="opacity 0.3s"
-                fontSize="xl"
-                bg="rgba(0, 0, 0, 0.5)"
-              >
-                &#8377; {e.cost}
-              </Text>
-            </Box>
-          ))}
+     
         </Box>
 
       </div>
