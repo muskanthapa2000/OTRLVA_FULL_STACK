@@ -31,7 +31,7 @@ function GuestInformation() {
     });
     setMessage("Your address has been saved please continue with payment ");
     
-
+    
 
     setName("");
     setGender("");
@@ -40,7 +40,7 @@ function GuestInformation() {
     setAddress("");
   };
 
-  return (
+  return (  
     <Flex justify="flex-start">
       <Box ml="24" p={4} width="600px">
         <form onSubmit={handleSubmit}>
@@ -48,6 +48,7 @@ function GuestInformation() {
             <FormLabel>Name</FormLabel>
             <Input
               type="text"
+              placeholder="Enter your name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -70,6 +71,7 @@ function GuestInformation() {
             <Input
               type="email"
               value={email}
+              placeholder="Enter your Email"
               onChange={(e) => setEmail(e.target.value)}
               required
             />
@@ -77,6 +79,7 @@ function GuestInformation() {
           <FormControl mb={4} isRequired>
             <FormLabel>Phone Number</FormLabel>
             <Input
+              placeholder="Enter your 10 digit phone number"
               type="tel"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
@@ -87,6 +90,8 @@ function GuestInformation() {
             <FormLabel>Address</FormLabel>
             <Input
               type="text"
+              placeholder="Enter your Address"
+
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               required
@@ -99,16 +104,16 @@ function GuestInformation() {
         </form>
       </Box>
       <Box maxW="400px" m="auto">
-        <FormControl id="cardNumber" mb="4">
+        <FormControl id="cardNumber" mb="4" isRequired>
           <FormLabel>Card Number</FormLabel>
           <Input type="text" placeholder="Card Number" maxLength={10} />
         </FormControl>
         <HStack spacing="4" mb="4">
-          <FormControl id="expiryDate">
-            <FormLabel>Expiration Date</FormLabel>
+          <FormControl id="expiryDate" isRequired>
+            <FormLabel>Expiration Date</FormLabel >
             <Input type="text" placeholder="MM/YYYY" maxLength={7} />
           </FormControl>
-          <FormControl id="cvv">
+          <FormControl id="cvv" isRequired>
             <FormLabel>CVV</FormLabel>
             <Input type="text" placeholder="CVV" maxLength={3} />
           </FormControl>
