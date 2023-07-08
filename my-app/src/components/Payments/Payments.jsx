@@ -19,8 +19,8 @@ import {
 import { BiKey, BiWifi, BiCloset } from "react-icons/bi";
 import { AiOutlineCoffee } from "react-icons/ai";
 import { MdLocalParking } from "react-icons/md";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
 import PaymentSummary from "./PaymentSummary";
 import { AddIcon, MinusIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 
