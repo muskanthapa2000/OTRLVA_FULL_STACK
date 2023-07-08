@@ -26,7 +26,7 @@ function Details() {
   console.log("Data:", data);
 
   return (
-    <div>
+    <div marginBottom={'30px'}>
    
 
       
@@ -51,13 +51,16 @@ function Details() {
           </Heading>
         </Box>
       </div>
-      <div style={{ width: '80%', margin: '0 auto' }}>
-        <Text fontSize="l" textAlign="center" mb="4" width="70%" margin="auto" paddingBottom="30px">
+
+
+      <div style={{ width: '80%', margin: '0 auto' , color: 'darkgreen',    fontWeight:'700' }}>
+        <div marginTop="30px">
+        <Text fontSize="l" textAlign="center" mb="4" width="70%" margin="auto"    >
          {data.description}
         </Text>
-
+        </div>
         <Center>
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex', marginTop:'30px' }}>
             <div style={{ marginRight: '5px' }}>
               <Image
                 src={data.urls}
@@ -94,7 +97,7 @@ function Details() {
           </p>
         </div>
 
-        <Box className="facility">
+        <Box className="facility" color={"black"}>
           <Heading as="h2" size="md" mt="8" mb="4" color="rgb(241, 88, 36)" fontWeight="bold">
             Amenities
           </Heading>
@@ -234,21 +237,11 @@ function Details() {
           </Grid>
         </Box>
         <Box textAlign="right" marginTop="20px">
-          <Button position="relative" _before={{
-            content: "''",
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            borderRadius: 'md',
-            border: '2px solid',
-            borderColor: 'rgb(241, 88, 36)',
-            animation: 'button-pulse 2s infinite linear',
-          }}>
-            BOOK NOW
-          </Button>
-        </Box>
+        <button className="button">
+      Book Now
+    </button>
+</Box>
+
       </div>
             
       </div>
