@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Box, Image, Text, useStyleConfig, Button, HStack, Center, Flex, Input } from "@chakra-ui/react";
 import { Link as Rlink } from "react-router-dom";
-
+import details from './details.css';
+import PreLoader from "../MainComp/Loader";
 
 function Discover() {
   const [data, setData] = useState([]);
@@ -11,6 +12,7 @@ function Discover() {
   const [totalPages, setTotalPages] = useState(0);
   const [sortOrder, setSortOrder] = useState("");
   const cardStyles = useStyleConfig("Card");
+  const[loading, setloding]= useState(false);
 
 
   useEffect(() => {
@@ -22,6 +24,7 @@ function Discover() {
   }, [searchKey, currentPage, sortOrder]);
 
   const fetchData = () => {
+    setloding(true);
     const queryParameters = `Country_like=${searchKey}&_page=${currentPage}&_limit=9${sortOrder ? `&_sort=cost&_order=${sortOrder}` : ""}`;
     const apiUrl = `https://trevelioussite.onrender.com/destination?${queryParameters}`;
 
@@ -30,14 +33,22 @@ function Discover() {
       .then((response) => {
         console.log(response.data);
         setData(response.data);
+        
         const totalCount = Number(response.headers["x-total-count"]);
         const calculatedTotalPages = Math.ceil(totalCount / 9);
         setTotalPages(calculatedTotalPages);
+        setloding(false);
       })
       .catch((error) => {
         console.error("Error fetching movies:", error);
       });
   };
+
+
+  if(loading){
+    return  <PreLoader/>
+   
+  }
 
   const handleSearchChange = (event) => {
     setSearchKey(event.target.value);
@@ -65,7 +76,7 @@ function Discover() {
   };
 
   return (
-    <div style={{ width: '90%', margin: 'auto' }} >
+    <div style={{ width: '95%', margin: 'auto' }} >
       <Flex direction="column" align="center" py={6}>
         <Input
           data-testid="search_key"
@@ -78,11 +89,12 @@ function Discover() {
         />
 
         <Center>
-          <HStack spacing={4}>
-            <h3>Order of cost:- </h3>
-            <Button onClick={handleAscendingSort}>Ascending</Button>
-            <Button onClick={handleDescendingSort}>Descending</Button>
-            <Button onClick={handleNoOrderSort}>No Order</Button>
+        <h3 style={{fontWeight:"bold", fontSize:"20px" , color:"rgb(15,73,53)", padding:"10px"} }>Sort By Price:-  </h3>
+          <HStack spacing={4} >
+            
+            <Button style={{color:"white", backgroundColor:"orange"}} onClick={handleAscendingSort}>Low To High</Button>
+            <Button style={{color:"white", backgroundColor:"orange"}} onClick={handleDescendingSort}>High To Low</Button>
+            <Button style={{color:"white", backgroundColor:"orange"}} onClick={handleNoOrderSort}>Default</Button>
           </HStack>
         </Center>
       </Flex>
@@ -148,15 +160,16 @@ function Discover() {
 
       </div>
       <Center className="pagination">
-        <Box paddingTop="30px">
+        <Box paddingTop="30px" paddingBottom={8}>
           <HStack spacing={4}>
             {currentPage > 1 && (
               <Button
                 disabled={currentPage === 1}
                 onClick={handlePreviousPage}
-                colorScheme="teal"
+                backgroundColor="orange"
+                color= 'white'
                 _hover={{
-                  backgroundColor: 'teal.500',
+                  backgroundColor: 'green',
                   color: 'white',
                 }}
               >
@@ -168,9 +181,11 @@ function Discover() {
               <Button
                 disabled={totalPages === currentPage}
                 onClick={handleNextPage}
-                colorScheme="teal"
+                backgroundColor="orange"
+                color= 'white'
                 _hover={{
-                  backgroundColor: 'teal.500',
+                      
+                      backgroundColor: 'green',
                   color: 'white',
                 }}
               >
