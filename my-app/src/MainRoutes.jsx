@@ -2,6 +2,18 @@ import React from 'react'
 import { Routes,Route } from 'react-router-dom'
 import Discover from './components/Products/Discover'
 import Details from './components/Products/Details'
+
+import HomePage from './components/HomePage'
+import { Login } from './components/MainComp/Login'
+import { Signup } from './components/MainComp/Signup'
+
+
+const MainRoutes = () => {
+ 
+   {/*const store= useSelector((state)=>state)
+
+console.log(store)*/}
+=======
 import HomePage from "./components/HomePage"
 // import Discover from './components/Products/Discover'
 import { Login } from './components/MainComp/Login'
@@ -14,6 +26,7 @@ const MainRoutes = () => {
   //  const store= useSelector((state)=>state)
 
   //  console.log(store)
+
 
 
   return (
