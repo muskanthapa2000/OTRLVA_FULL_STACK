@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -7,7 +8,9 @@ import {
   Input,
   Select,
   Button,
+  HStack,
 } from "@chakra-ui/react";
+
 
 function GuestInformation() {
   const [name, setName] = useState("");
@@ -15,10 +18,10 @@ function GuestInformation() {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
     console.log("Form submitted:", {
       name,
       gender,
@@ -26,7 +29,10 @@ function GuestInformation() {
       phoneNumber,
       address,
     });
-    // Reset form fields
+    setMessage("Your address has been saved please continue with payment ");
+    
+
+
     setName("");
     setGender("");
     setEmail("");
@@ -86,12 +92,32 @@ function GuestInformation() {
               required
             />
           </FormControl>
-          <Button type="submit" colorScheme="blue" mt={4}>
+          <Button type="submit" colorScheme="green" bg="#e4640d;" mt={4}>
             Submit
           </Button>
+          {message && <Box color="green" mt={2}>{message}</Box>}
         </form>
       </Box>
-      <Box>
+      <Box maxW="400px" m="auto">
+        <FormControl id="cardNumber" mb="4">
+          <FormLabel>Card Number</FormLabel>
+          <Input type="text" placeholder="Card Number" maxLength={10} />
+        </FormControl>
+        <HStack spacing="4" mb="4">
+          <FormControl id="expiryDate">
+            <FormLabel>Expiration Date</FormLabel>
+            <Input type="text" placeholder="MM/YYYY" maxLength={7} />
+          </FormControl>
+          <FormControl id="cvv">
+            <FormLabel>CVV</FormLabel>
+            <Input type="text" placeholder="CVV" maxLength={3} />
+          </FormControl>
+        </HStack>
+        <Link to="/thankyou" style={{ textDecoration: 'none' }}>
+        <Button colorScheme="green" bg="#e4640d;" size="lg" w="100%">
+          Pay Now
+        </Button>
+        </Link>
         
       </Box>
     </Flex>
