@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link as Rlink} from "react-router-dom";
+import { Link as Rlink } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -9,8 +9,16 @@ import {
   Select,
   Button,
   HStack,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Text,
 } from "@chakra-ui/react";
-
 
 function GuestInformation() {
   const [name, setName] = useState("");
@@ -19,6 +27,7 @@ function GuestInformation() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [message, setMessage] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,9 +38,7 @@ function GuestInformation() {
       phoneNumber,
       address,
     });
-    setMessage("Your address has been saved please continue with payment ");
-    
-    
+    setMessage("Your address has been saved and payment has been done, Thank you for booking");
 
     setName("");
     setGender("");
@@ -40,7 +47,12 @@ function GuestInformation() {
     setAddress("");
   };
 
-  return (  
+  const handleModalClose = () => {
+    onClose();
+    window.location.href = "/discover";
+  };
+
+  return (
     <Flex justify="flex-start">
       <Box ml="24" p={4} width="600px">
         <form onSubmit={handleSubmit}>
@@ -91,7 +103,6 @@ function GuestInformation() {
             <Input
               type="text"
               placeholder="Enter your Address"
-
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               required
@@ -100,7 +111,6 @@ function GuestInformation() {
           <Button type="submit" colorScheme="green" bg="#e4640d;" mt={4}>
             Submit
           </Button>
-          {message && <Box color="green" mt={2}>{message}</Box>}
         </form>
       </Box>
       <Box maxW="400px" m="auto">
@@ -110,7 +120,7 @@ function GuestInformation() {
         </FormControl>
         <HStack spacing="4" mb="4">
           <FormControl id="expiryDate" isRequired>
-            <FormLabel>Expiration Date</FormLabel >
+            <FormLabel>Expiration Date</FormLabel>
             <Input type="text" placeholder="MM/YYYY" maxLength={7} />
           </FormControl>
           <FormControl id="cvv" isRequired>
@@ -118,12 +128,24 @@ function GuestInformation() {
             <Input type="text" placeholder="CVV" maxLength={3} />
           </FormControl>
         </HStack>
-        <Rlink to="/thankyou" style={{ textDecoration: 'none' }}>
-        <Button colorScheme="green" bg="#e4640d;" size="lg" w="100%">
+        <Button onClick={onOpen} colorScheme="green" bg="#e4640d;" size="lg" w="100%">
           Pay Now
         </Button>
-        </Rlink>
-        
+        <Modal isOpen={isOpen} onClose={handleModalClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Thank You!</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Text>{message}</Text>
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="green" bg="#e4640d;" mr={3} onClick={handleModalClose}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </Box>
     </Flex>
   );
