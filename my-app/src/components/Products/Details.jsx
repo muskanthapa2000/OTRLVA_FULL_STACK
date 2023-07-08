@@ -1,21 +1,36 @@
 import React, { useEffect, useState } from 'react';
 
-import { Box, Heading, Text, Button, Center, Image, Grid, GridItem, Flex } from '@chakra-ui/react';
+import { Box, Heading, Text, Button, Center, Image, Grid, GridItem, Flex, textDecoration } from '@chakra-ui/react';
 import { BiLockAlt, BiWifi, BiWind, BiCoffee, BiDollarCircle, BiBed, BiCar, BiDroplet, BiCreditCard, BiTime, BiGame, BiWorld, BiDoughnutChart, BiWater, BiGroup, BiCube, } from 'react-icons/bi';
 import details from './details.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios'
+import { Link as Rlink} from 'react-router-dom';
+import PreLoader from "../MainComp/Loader";
+
+const style = {
+  marginTop:"35px",
+  overflow: "hidden",
+  width: "100%",
+  paddingBottom: "46%",
+  //    border:"2px solid red",
+  position: "relative",
+  height: "0px",
+  };
 
 function Details() {
   const [data, setData] = useState([]);
   const { id } = useParams();
+  const [loading, setloding]=useState(false);
 
   useEffect(() => {
+    setloding(true);
     axios
       .get(`https://trevelioussite.onrender.com/destination/${id}`)
       .then((response) => {
         console.log(response.data);
         setData(response.data);
+        setloding(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -25,8 +40,12 @@ function Details() {
   }, [id]);
   console.log("Data:", data);
 
+  if(loading){
+    return  <PreLoader/>
+   
+  }
   return (
-    <div marginBottom={'30px'}>
+    <div marginBottom={'30px'} >
    
 
       
@@ -34,7 +53,7 @@ function Details() {
         <Image
           src={data.url}
           alt="N"
-          style={{ width: '100%', height: "500px" }}
+          style={{ width: '100%', height: "500px"}}
         />
         <Box
           position="absolute"
@@ -53,9 +72,13 @@ function Details() {
       </div>
 
 
-      <div style={{ width: '80%', margin: '0 auto' , color: 'darkgreen',    fontWeight:'700' }}>
+      <div style={{ width: '80%', margin: '0 auto' , color:'#746d72', fontWeight:'700' }}>
+
         <div marginTop="30px">
-        <Text fontSize="l" textAlign="center" mb="4" width="70%" margin="auto"    >
+        <Text fontSize="40" textAlign="center" mb="4" width="70%" margin="auto" mt={10}   >
+         Welcome To  <span style={{color:"rgb(241, 88, 36)"}} >Travelious</span>
+        </Text>
+        <Text fontSize="l" textAlign="center" mb={10} width="70%" margin="auto"    >
          {data.description}
         </Text>
         </div>
@@ -89,10 +112,10 @@ function Details() {
         </Center>
 
         <Heading as="h1" size="xl" mb="4" color="rgb(241, 88, 36)" fontWeight="bold" marginTop="30px">
-          PER NIGHT :- &#8377; {data.cost}
+         COST PER NIGHT :- &#8377; {data.cost}
         </Heading>
         <div>
-          <p>
+          <p color='grey'>
            {data.description1}
           </p>
         </div>
@@ -236,10 +259,38 @@ function Details() {
 
           </Grid>
         </Box>
-        <Box textAlign="right" marginTop="20px">
-        <button className="button">
+
+
+ <Box>
+ <div style={style}>
+          <iframe
+            className="iframe"
+            style={{
+              height: "450px",
+              border: "0  px",
+              loading: "lazy",
+              left: "0px",
+              //   position:"absolute",
+              top: "0px",
+              width: "100%",
+            }}
+            id="iframe"
+            //   width="600"
+            //   height="450"
+            //   style="border: 0"
+            //   loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyCJ50P3i-sk5hbxpI4mwppCAkio4ATadi0
+                    &q=${data.name}`}
+          ></iframe>
+        </div>
+ </Box>
+
+        <Box textAlign="right" marginBottom={5}>
+       <Rlink to={`/payment/${id}`}> <button className="button">
       Book Now
-    </button>
+    </button></Rlink> 
 </Box>
 
       </div>
