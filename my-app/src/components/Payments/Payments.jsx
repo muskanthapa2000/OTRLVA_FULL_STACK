@@ -23,6 +23,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PaymentSummary from "./PaymentSummary";
 import { AddIcon, MinusIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import { useParams } from "react-router-dom";
 
 function Payments() {
   const [data, setData] = useState([]);
@@ -30,6 +31,7 @@ function Payments() {
   const [roomCount, setRoomCount] = useState(0);
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
+  const { id } = useParams();
 
   useEffect(() => {
     fetchData();
@@ -84,7 +86,7 @@ function Payments() {
     }
   };
 
-  const selectedItem = data.find((item) => item.id === 1);
+  const selectedItem = data.find((item) => item.id === parseInt(id));
   const roomCost = selectedItem?.cost || 0;
   const taxRate = 0.18;
   const dayCount = calculateDayCount();
@@ -123,87 +125,85 @@ function Payments() {
             </Flex>
           </Flex>
           <Flex>
-            
-          
-          {selectedItem && (
-            <Card
-              key={selectedItem.id}
-              direction={{ base: "column", sm: "row" }}
-              overflow="hidden"
-              variant="outline"
-              maxW="800px"
-              mb="4"
-              mt="2"
-              ml="24"
-            >
-              <Image
-                objectFit="cover"
-                maxW={{ base: "100%", sm: "200px" }}
-                src={selectedItem.url}
-                alt={selectedItem.name}
+            {selectedItem && (
+              <Card
+                key={selectedItem.id}
+                direction={{ base: "column", sm: "row" }}
+                overflow="hidden"
+                variant="outline"
+                maxW="800px"
+                mb="4"
+                mt="2"
+                ml="24"
+              >
+                <Image
+                  objectFit="cover"
+                  maxW={{ base: "100%", sm: "200px" }}
+                  src={selectedItem.url}
+                  alt={selectedItem.name}
+                />
+
+                <Stack>
+                  <CardBody>
+                    <Flex>
+                      <Heading size="md">{selectedItem.name}</Heading>
+                      <Spacer />
+                      <Heading size="md">₹{selectedItem.cost}</Heading>
+                    </Flex>
+                    <Text py="2">{selectedItem.description}</Text>
+                    <Text>
+                      <Icon as={BiKey} mr="2" />
+                      <Icon as={BiWifi} mr="2" />
+                      <Icon as={BiCloset} mr="2" />
+                      <Icon as={AiOutlineCoffee} />
+                      <Icon as={MdLocalParking} />
+                    </Text>
+                  </CardBody>
+
+                  <CardFooter>
+                    {selectedRoom === selectedItem.id && roomCount > 0 ? (
+                      <ButtonGroup size="sm" isAttached variant="outline">
+                        <IconButton
+                          aria-label="Decrement"
+                          icon={<MinusIcon />}
+                          onClick={handleDecrement}
+                        />
+                        <Button>{roomCount}</Button>
+                        <IconButton
+                          aria-label="Increment"
+                          icon={<AddIcon />}
+                          onClick={handleIncrement}
+                        />
+                      </ButtonGroup>
+                    ) : (
+                      <Button
+                        variant="solid"
+                        colorScheme="green"
+                        bg="#e4640d;"
+                        onClick={() => handleRoomSelect(selectedItem.id)}
+                      >
+                        Select Rooms
+                      </Button>
+                    )}
+                  </CardFooter>
+                </Stack>
+              </Card>
+            )}
+
+            {roomCount > 0 && (
+              <PaymentSummary
+                roomCount={roomCount}
+                totalPrice={totalPrice}
+                taxRate={taxRate}
+                taxAmount={taxAmount}
+                totalAmount={totalAmount}
+                payableAmount={payableAmount}
+                dayCount={dayCount}
               />
-
-              <Stack>
-                <CardBody>
-                  <Flex>
-                    <Heading size="md">{selectedItem.name}</Heading>
-                    <Spacer />
-                    <Heading size="md">₹{selectedItem.cost}</Heading>
-                  </Flex>
-                  <Text py="2">{selectedItem.description}</Text>
-                  <Text>
-                    <Icon as={BiKey} mr="2" />
-                    <Icon as={BiWifi} mr="2" />
-                    <Icon as={BiCloset} mr="2" />
-                    <Icon as={AiOutlineCoffee} />
-                    <Icon as={MdLocalParking} />
-                  </Text>
-                </CardBody>
-
-                <CardFooter>
-                  {selectedRoom === selectedItem.id && roomCount > 0 ? (
-                    <ButtonGroup size="sm" isAttached variant="outline">
-                      <IconButton
-                        aria-label="Decrement"
-                        icon={<MinusIcon />}
-                        onClick={handleDecrement}
-                      />
-                      <Button>{roomCount}</Button>
-                      <IconButton
-                        aria-label="Increment"
-                        icon={<AddIcon />}
-                        onClick={handleIncrement}
-                      />
-                    </ButtonGroup>
-                  ) : (
-                    <Button
-                      variant="solid"
-                      colorScheme="green"
-                      bg="#e4640d;"
-                      onClick={() => handleRoomSelect(selectedItem.id)}
-                    >
-                      Select Rooms
-                    </Button>
-                  )}
-                </CardFooter>
-              </Stack>
-            </Card>
-          )}
-
-{roomCount > 0 && (
-        <PaymentSummary
-          roomCount={roomCount}
-          totalPrice={totalPrice}
-          taxRate={taxRate}
-          taxAmount={taxAmount}
-          totalAmount={totalAmount}
-          payableAmount={payableAmount}
-          dayCount={dayCount}
-        />
-      )}
+            )}
+          </Flex>
+        </Box>
       </Flex>
-    </Box>
-  </Flex>
     </Box>
   );
 }

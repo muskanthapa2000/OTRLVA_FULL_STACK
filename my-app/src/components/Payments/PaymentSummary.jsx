@@ -26,7 +26,6 @@ function PaymentSummary({
   const [isCouponApplied, setIsCouponApplied] = useState(false);
 
   useEffect(() => {
-    // Update payable amount when roomCount or dayCount changes
     const updatedPayableAmount = totalAmount * roomCount * dayCount;
     setDiscountedTotalAmount(updatedPayableAmount);
   }, [roomCount, dayCount]);
