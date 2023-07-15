@@ -35,20 +35,20 @@ export default function WithSubnavigation() {
 
 
  
-//  const currUser = useSelector((store) => {
-//     return store.accountReducer.currUser;
-//   });
-    // useEffect(() => {
-      // const userEmail = JSON.parse(localStorage.getItem("userEmail"));
-      // if (userEmail) {
-      //   console.log(userEmail)
-      //   let currUser = { email : userEmail };
-      //   getCurrentUser(currUser, dispatch);
-      // }
-    // }, []);
+ const currUser = useSelector((store) => {
+    return store.accountReducer.currUser;
+  });
+    useEffect(() => {
+      const userEmail = JSON.parse(localStorage.getItem("userEmail"));
+      if (userEmail) {
+        console.log(userEmail)
+        let currUser = { email : userEmail };
+        getCurrentUser(currUser, dispatch);
+      }
+    }, []);
 
   
-    // console.log(currUser)
+    console.log(currUser)
     
  const dispatch= useDispatch()
   const handleLogin=()=>{
@@ -126,7 +126,7 @@ export default function WithSubnavigation() {
               {/* {
                 currUser.email && "Log In"
               } */}
-           Log In
+           {currUser.firstName ? currUser.firstName : "Log In"}
           </Button>
           <Button
           onClick={()=>{handleRegister()}}
@@ -285,6 +285,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
         )}
       </Flex>
 
+{/* lllllllllll */}
       <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
         <Stack
           mt={2}
