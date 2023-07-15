@@ -286,8 +286,10 @@ function Details() {
           ></iframe>
         </div>
  </Box>
+ 
 
         <Box textAlign="right" marginBottom={5}>
+
        <Rlink to={`/payment/${id}`}> <button className="button">
       Book Now
     </button></Rlink> 

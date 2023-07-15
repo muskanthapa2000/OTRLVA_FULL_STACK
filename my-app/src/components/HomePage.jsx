@@ -3,8 +3,9 @@ import { Box, Text, Select, Flex, Button, Image, SimpleGrid, IconButton, Center,
 import { SearchIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { FcCustomerSupport, FcOvertime, FcApproval } from 'react-icons/fc';
 import { FontAwesomeIcon } from 'react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+// import { faStar } from '@fortawesome/free-solid-svg-icons';
 import Carousel from "./carousel";
+
 
 
 
@@ -66,7 +67,7 @@ const HomePage = () => {
           padding="1rem"
         >
           <div>
-            <Text fontSize="6xl" fontWeight="bold" fontFamily="Helvetica" color="#306754">
+            <Text fontSize="5xl" fontWeight="bold" fontFamily="Helvetica" color="#306754">
               LIVE YOUR <Text as="span" color="darkorange">ADVENTURE</Text>
             </Text>
           </div>
