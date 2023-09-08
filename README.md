@@ -1,1 +1,1 @@
-Discover Travelious: Your gateway to seamless travel exploration, planning, and sharing. Utilizing the power of React, Redux, EmailJS, and Chakra UI, this state-of-the-art travel platform provides tailored itineraries and an immersive user interface. Embark on your extraordinary journey with Travelious today.
+
