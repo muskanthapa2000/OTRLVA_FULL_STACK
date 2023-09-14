@@ -1,6 +1,6 @@
 // http://localhost:8080/data/search?search=thailand search
 // http://localhost:8080/data/search?_sort=cost&_order=asc  sort
-// http://localhost:8080/data/search?page=1&pageSize=9  pagination
+// http://localhost:8080/data/search?_page=2&_limit=4  pagination
 
 const { DataModel } = require("./models/data.model");
 const { connection } = require("./config/db");

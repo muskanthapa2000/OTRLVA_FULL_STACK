@@ -197,7 +197,6 @@ function Discover() {
       <Center className="pagination">
         <Box paddingTop="30px" paddingBottom={8}>
           <HStack spacing={4}>
-            {currentPage > 1 && (
               <Button
                 disabled={currentPage === 1}
                 onClick={handlePreviousPage}
@@ -210,9 +209,8 @@ function Discover() {
               >
                 Previous
               </Button>
-            )}
+  
             <Button> {currentPage}</Button>
-            {currentPage < totalPages && (
               <Button
                 disabled={totalPages === currentPage}
                 onClick={handleNextPage}
@@ -225,7 +223,7 @@ function Discover() {
               >
                 Next
               </Button>
-            )}
+         
           </HStack>
         </Box>
       </Center>
