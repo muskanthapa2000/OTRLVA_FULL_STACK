@@ -33,9 +33,7 @@ function Discover() {
 
   const fetchData = () => {
     setLoading(true);
-    const queryParameters = `Country_like=${searchKey}&_page=${currentPage}&_limit=9${
-      sortOrder ? `&_sort=cost&_order=${sortOrder}` : ""
-    }`;
+    const queryParameters = `search=${searchKey}&_page=${currentPage}&_limit=9&_sort=${sortOrder || "default"}`;
     const apiUrl = `http://localhost:8080/data/search?${queryParameters}`;
 
     axios
@@ -102,17 +100,24 @@ function Discover() {
             width="300px"
           />
           <Button
-           
-           style={{ color: "white", backgroundColor: "orange" }}
-           onClick={handleSearch}
+            style={{ color: "white", backgroundColor: "orange" }}
+            onClick={handleSearch}
             isLoading={loading}
-         >
-
+          >
             Search
           </Button>
         </HStack>
         <Center>
-          <h3 style={{ fontWeight: "bold", fontSize: "20px", color: "rgb(15,73,53)", padding: "10px" }}>Sort By Price:-  </h3>
+          <h3
+            style={{
+              fontWeight: "bold",
+              fontSize: "20px",
+              color: "rgb(15,73,53)",
+              padding: "10px",
+            }}
+          >
+            Sort By Price:{" "}
+          </h3>
           <HStack spacing={4}>
             <Button
               style={{ color: "white", backgroundColor: "orange" }}
@@ -150,7 +155,7 @@ function Discover() {
                 transform: "scale(1.1)",
               }}
             >
-              <Rlink to={`/discover/${e.id}`} >
+              <Rlink to={`/discover/${e.id}`}>
                 <Image
                   src={e.url}
                   alt="not pic"
@@ -197,10 +202,10 @@ function Discover() {
                 disabled={currentPage === 1}
                 onClick={handlePreviousPage}
                 backgroundColor="orange"
-                color='white'
+                color="white"
                 _hover={{
-                  backgroundColor: 'green',
-                  color: 'white',
+                  backgroundColor: "green",
+                  color: "white",
                 }}
               >
                 Previous
@@ -212,10 +217,10 @@ function Discover() {
                 disabled={totalPages === currentPage}
                 onClick={handleNextPage}
                 backgroundColor="orange"
-                color='white'
+                color="white"
                 _hover={{
-                  backgroundColor: 'green',
-                  color: 'white',
+                  backgroundColor: "green",
+                  color: "white",
                 }}
               >
                 Next
