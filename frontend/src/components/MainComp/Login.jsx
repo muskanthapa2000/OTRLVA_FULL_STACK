@@ -33,11 +33,9 @@ export const Login = () => {
     
     const { isOpen, onOpen, onClose } = useDisclosure()
     
-    const AllUsers = useSelector((store) => store.accountReducer.AllUsers)
-    const isLogin = useSelector((store) => store.accountReducer.isLogin)
+    // const AllUsers = useSelector((store) => store.accountReducer.AllUsers)
+    // const isLogin = useSelector((store) => store.accountReducer.isLogin)
     
-    // const currUser = useSelector((store) => store.accountReducer.currUser);
-//    console.log(AllUsers)
 
    const toast = useToast()
   const toastIdRef = useRef()
@@ -51,36 +49,30 @@ export const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        const user = AllUsers.find(
-            (user) => user.email === email && user.password === password
-          );
-        
-        if (user) {
-            toast({
-                title: 'SIGNIN SUCCESSFULL',
-                status: 'success',
-                position: 'top-left',
-                isClosable: true,
-              })
-            dispatch(getCurrentUser(user))
-            dispatch({type:ALL_ROUTE})
-            navigate('/')
-        }else{
-            toast({
-                title: 'WRONG CREDENTIALS',
-                status: 'error',
-                position: 'top-left',
-                isClosable: true,
-              })
+        const payload = {
+            email,
+            password,
         }
-
+        
+        fetch("http://localhost:8080/login", {
+            method : "POST",
+            headers : {
+                "content-type" : "application/json"
+            },
+            body : JSON.stringify(payload)
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            console.log(res.msg)
+            localStorage.setItem("token", res.token)
+        })
+        .catch((err) => console.log(err))
+       
     }
 
     return (
         <Box style={{marginBottom:"30px"}}>
             <Box className="main_form_div"  w={{base:"90%",sm:"80%", md:'60%', lg:"40%"}} m='10px auto' p={{base:"25px"}}
-            //  border={'1px solid red'}
              bg={null} boxShadow={"rgba(0, 0, 0, 0.35) 0px 5px 15px"} >
                 <Heading fontWeight="600" fontSize="32px" >Sign in to your Account</Heading>
                 <br />
@@ -124,10 +116,15 @@ export const Login = () => {
                         </Text>
                     </Box>
                     <br />
+                    <Link to = "/">
                     <ButtonGroup variant='outline' width="100%" >
-                        <Button type="submit" className="btn" colorScheme="darkorange"
+                        <Button
+                         onClick={()=>{navigate("/")}}
+                        type="submit" className="btn" colorScheme="darkorange"
                         >  Sign In  </Button>
                     </ButtonGroup>
+                    </Link>
+                 
 
                     <br />
                     <br />

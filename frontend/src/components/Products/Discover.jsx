@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Box, Image, Text, useStyleConfig, Button, HStack, Center, Flex, Input } from "@chakra-ui/react";
+import {
+  Box,
+  Image,
+  Text,
+  useStyleConfig,
+  Button,
+  HStack,
+  Center,
+  Flex,
+  Input,
+} from "@chakra-ui/react";
 import { Link as Rlink } from "react-router-dom";
-import details from './details.css';
 import PreLoader from "../MainComp/Loader";
 
 function Discover() {
@@ -12,8 +21,7 @@ function Discover() {
   const [totalPages, setTotalPages] = useState(0);
   const [sortOrder, setSortOrder] = useState("");
   const cardStyles = useStyleConfig("Card");
-  const[loading, setloding]= useState(false);
-
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
@@ -24,35 +32,41 @@ function Discover() {
   }, [searchKey, currentPage, sortOrder]);
 
   const fetchData = () => {
-    setloding(true);
-    const queryParameters = `Country_like=${searchKey}&_page=${currentPage}&_limit=9${sortOrder ? `&_sort=cost&_order=${sortOrder}` : ""}`;
-    const apiUrl = `https://trevelioussite.onrender.com/destination?${queryParameters}`;
+    setLoading(true);
+    const queryParameters = `Country_like=${searchKey}&_page=${currentPage}&_limit=9${
+      sortOrder ? `&_sort=cost&_order=${sortOrder}` : ""
+    }`;
+    const apiUrl = `http://localhost:8080/data/search?${queryParameters}`;
 
     axios
       .get(apiUrl)
       .then((response) => {
         console.log(response.data);
         setData(response.data);
-        
+
         const totalCount = Number(response.headers["x-total-count"]);
         const calculatedTotalPages = Math.ceil(totalCount / 9);
         setTotalPages(calculatedTotalPages);
-        setloding(false);
+        setLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching movies:", error);
+        console.error("Error fetching data:", error);
+        setLoading(false);
       });
   };
 
-
-  if(loading){
-    return  <PreLoader/>
-   
+  if (loading) {
+    return <PreLoader />;
   }
 
   const handleSearchChange = (event) => {
     setSearchKey(event.target.value);
     setCurrentPage(1);
+  };
+
+  const handleSearch = () => {
+    setCurrentPage(1);
+    fetchData();
   };
 
   const handlePreviousPage = () => {
@@ -76,36 +90,58 @@ function Discover() {
   };
 
   return (
-    <div style={{ width: '95%', margin: 'auto' }} >
+    <div style={{ width: "95%", margin: "auto" }}>
       <Flex direction="column" align="center" py={6}>
-        <Input
-          data-testid="search_key"
-          type="text"
-          placeholder="Search Place"
-          value={searchKey}
-          onChange={handleSearchChange}
-          width="300px"
-          mb={4}
-        />
+        <HStack spacing={2} mb={4}>
+          <Input
+            data-testid="search_key"
+            type="text"
+            placeholder="Search Place"
+            value={searchKey}
+            onChange={handleSearchChange}
+            width="300px"
+          />
+          <Button
+           
+           style={{ color: "white", backgroundColor: "orange" }}
+           onClick={handleSearch}
+            isLoading={loading}
+         >
 
+            Search
+          </Button>
+        </HStack>
         <Center>
-        <h3 style={{fontWeight:"bold", fontSize:"20px" , color:"rgb(15,73,53)", padding:"10px"} }>Sort By Price:-  </h3>
-          <HStack spacing={4} >
-            
-            <Button style={{color:"white", backgroundColor:"orange"}} onClick={handleAscendingSort}>Low To High</Button>
-            <Button style={{color:"white", backgroundColor:"orange"}} onClick={handleDescendingSort}>High To Low</Button>
-            <Button style={{color:"white", backgroundColor:"orange"}} onClick={handleNoOrderSort}>Default</Button>
+          <h3 style={{ fontWeight: "bold", fontSize: "20px", color: "rgb(15,73,53)", padding: "10px" }}>Sort By Price:-  </h3>
+          <HStack spacing={4}>
+            <Button
+              style={{ color: "white", backgroundColor: "orange" }}
+              onClick={handleAscendingSort}
+            >
+              Low To High
+            </Button>
+            <Button
+              style={{ color: "white", backgroundColor: "orange" }}
+              onClick={handleDescendingSort}
+            >
+              High To Low
+            </Button>
+            <Button
+              style={{ color: "white", backgroundColor: "orange" }}
+              onClick={handleNoOrderSort}
+            >
+              Default
+            </Button>
           </HStack>
         </Center>
       </Flex>
 
-      <div >
+      <div>
         <Box display="grid" gridTemplateColumns="repeat(3, 1fr)" gap={6}>
           {data.map((e) => (
             <Box
               key={e.id}
               className="destination-card"
-              // onClick={() => handleImageClick(e.id)}
               cursor="pointer"
               borderRadius="md"
               overflow="hidden"
@@ -133,10 +169,6 @@ function Discover() {
                 padding="4"
                 color="white"
                 fontWeight="bold"
-                // fontSize="xl"
-                // bg="rgba(0, 0, 0, 0.5)"
-                // opacity={}
-                transition="opacity 0.3s"
               >
                 {e.name}
               </Text>
@@ -148,7 +180,6 @@ function Discover() {
                 color="white"
                 fontWeight="bold"
                 opacity={0.9}
-                transition="opacity 0.3s"
                 fontSize="xl"
                 bg="rgba(0, 0, 0, 0.5)"
               >
@@ -157,7 +188,6 @@ function Discover() {
             </Box>
           ))}
         </Box>
-
       </div>
       <Center className="pagination">
         <Box paddingTop="30px" paddingBottom={8}>
@@ -167,7 +197,7 @@ function Discover() {
                 disabled={currentPage === 1}
                 onClick={handlePreviousPage}
                 backgroundColor="orange"
-                color= 'white'
+                color='white'
                 _hover={{
                   backgroundColor: 'green',
                   color: 'white',
@@ -182,10 +212,9 @@ function Discover() {
                 disabled={totalPages === currentPage}
                 onClick={handleNextPage}
                 backgroundColor="orange"
-                color= 'white'
+                color='white'
                 _hover={{
-                      
-                      backgroundColor: 'green',
+                  backgroundColor: 'green',
                   color: 'white',
                 }}
               >
