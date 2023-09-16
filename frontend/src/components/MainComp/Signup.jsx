@@ -35,7 +35,7 @@ export const Signup = ({ onClose }) => {
         password,
       };
 
-      const response = await fetch("http://localhost:8080/signup", {
+      const response = await fetch("https://prussian-blue-harp-seal-coat.cyclic.cloud/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

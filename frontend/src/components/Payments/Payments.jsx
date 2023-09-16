@@ -27,27 +27,32 @@ import { useParams } from "react-router-dom";
 
 function Payments() {
   const [data, setData] = useState([]);
+  console.log(data);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [roomCount, setRoomCount] = useState(0);
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
   const { id } = useParams();
 
+  // useEffect(() => {
+  //   fetchData();
+  //   setDefaultDates();
+  // }, []);
   useEffect(() => {
-    fetchData();
-    setDefaultDates();
-  }, []);
+    axios
+      .get(`https://prussian-blue-harp-seal-coat.cyclic.cloud/data/${id}`)
+      .then((response) => {
+        console.log(response.data); // Log the entire response
+        setData(response.data); // Access data within the response
+        setDefaultDates();
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [id]);
+  
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        "https://trevelioussite.onrender.com/destination"
-      );
-      setData(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  console.log(data);
 
   const setDefaultDates = () => {
     const today = new Date();
@@ -86,8 +91,9 @@ function Payments() {
     }
   };
 
-  const selectedItem = data.find((item) => item.id === parseInt(id));
-  const roomCost = selectedItem?.cost || 0;
+  // const selectedItem = Array.isArray(data) ? data.find((item) => item.id === id) : null;
+  // console.log(selectedItem)
+  const roomCost = data?.cost || 0;
   const taxRate = 0.18;
   const dayCount = calculateDayCount();
   const totalPrice = roomCount * roomCost * dayCount;
@@ -99,7 +105,7 @@ function Payments() {
     <Box bg="#e8f0f2" p="4">
       <Flex>
         <Box flex="1 0 auto">
-          <Flex>
+          <Flex ml= {280}>
             <Box>
               <Heading size="lg" ml="24" mb="4">
                 Book Your stay
@@ -124,10 +130,10 @@ function Payments() {
               </Box>
             </Flex>
           </Flex>
-          <Flex>
-            {selectedItem && (
+          <Flex ml={280}>
+            {data && (
               <Card
-                key={selectedItem.id}
+                key={data.id}
                 direction={{ base: "column", sm: "row" }}
                 overflow="hidden"
                 variant="outline"
@@ -139,18 +145,18 @@ function Payments() {
                 <Image
                   objectFit="cover"
                   maxW={{ base: "100%", sm: "200px" }}
-                  src={selectedItem.url}
-                  alt={selectedItem.name}
+                  src={data.url}
+                  alt={data.name}
                 />
 
                 <Stack>
                   <CardBody>
                     <Flex>
-                      <Heading size="md">{selectedItem.name}</Heading>
+                      <Heading size="md">{data.name}</Heading>
                       <Spacer />
-                      <Heading size="md">₹{selectedItem.cost}</Heading>
+                      <Heading size="md">₹{data.cost}</Heading>
                     </Flex>
-                    <Text py="2">{selectedItem.description}</Text>
+                    <Text py="2">{data.description}</Text>
                     <Text>
                       <Icon as={BiKey} mr="2" />
                       <Icon as={BiWifi} mr="2" />
@@ -161,7 +167,7 @@ function Payments() {
                   </CardBody>
 
                   <CardFooter>
-                    {selectedRoom === selectedItem.id && roomCount > 0 ? (
+                    {selectedRoom === data.id && roomCount > 0 ? (
                       <ButtonGroup size="sm" isAttached variant="outline">
                         <IconButton
                           aria-label="Decrement"
@@ -180,7 +186,7 @@ function Payments() {
                         variant="solid"
                         colorScheme="green"
                         bg="#e4640d;"
-                        onClick={() => handleRoomSelect(selectedItem.id)}
+                        onClick={() => handleRoomSelect(data.id)}
                       >
                         Select Rooms
                       </Button>

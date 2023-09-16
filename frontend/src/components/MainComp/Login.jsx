@@ -54,7 +54,7 @@ export const Login = () => {
             password,
         }
         
-        fetch("http://localhost:8080/login", {
+        fetch("https://prussian-blue-harp-seal-coat.cyclic.cloud/login", {
             method : "POST",
             headers : {
                 "content-type" : "application/json"

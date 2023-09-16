@@ -19,7 +19,7 @@ function Discover() {
   const [searchKey, setSearchKey] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [sortOrder, setSortOrder] = useState("");
+  const [sortOrder, setSortOrder] = useState(""); // Added sorting state
   const cardStyles = useStyleConfig("Card");
   const [loading, setLoading] = useState(false);
 
@@ -33,8 +33,8 @@ function Discover() {
 
   const fetchData = () => {
     setLoading(true);
-    const queryParameters = `search=${searchKey}&_page=${currentPage}&_limit=9&_sort=${sortOrder || "default"}`;
-    const apiUrl = `http://localhost:8080/data/search?${queryParameters}`;
+    const queryParameters = `search=${searchKey}&_page=${currentPage}&_limit=9&_sort=cost&_order=${sortOrder}`; // Updated _sort parameter to "cost"
+    const apiUrl = `https://prussian-blue-harp-seal-coat.cyclic.cloud/data?${queryParameters}`;
 
     axios
       .get(apiUrl)
@@ -145,7 +145,7 @@ function Discover() {
         <Box display="grid" gridTemplateColumns="repeat(3, 1fr)" gap={6}>
           {data.map((e) => (
             <Box
-              key={e.id}
+              key={e._id}
               className="destination-card"
               cursor="pointer"
               borderRadius="md"
@@ -155,7 +155,7 @@ function Discover() {
                 transform: "scale(1.1)",
               }}
             >
-              <Rlink to={`/discover/${e.id}`}>
+              <Rlink to={`/discover/${e._id}`}>
                 <Image
                   src={e.url}
                   alt="not pic"
@@ -165,7 +165,6 @@ function Discover() {
                   sx={cardStyles}
                 />
               </Rlink>
-
               <Text
                 position="absolute"
                 bottom="0"
@@ -197,33 +196,31 @@ function Discover() {
       <Center className="pagination">
         <Box paddingTop="30px" paddingBottom={8}>
           <HStack spacing={4}>
-              <Button
-                disabled={currentPage === 1}
-                onClick={handlePreviousPage}
-                backgroundColor="orange"
-                color="white"
-                _hover={{
-                  backgroundColor: "green",
-                  color: "white",
-                }}
-              >
-                Previous
-              </Button>
-  
+            <Button
+              disabled={currentPage === 1}
+              onClick={handlePreviousPage}
+              backgroundColor="orange"
+              color="white"
+              _hover={{
+                backgroundColor: "green",
+                color: "white",
+              }}
+            >
+              Previous
+            </Button>
             <Button> {currentPage}</Button>
-              <Button
-                disabled={totalPages === currentPage}
-                onClick={handleNextPage}
-                backgroundColor="orange"
-                color="white"
-                _hover={{
-                  backgroundColor: "green",
-                  color: "white",
-                }}
-              >
-                Next
-              </Button>
-         
+            <Button
+              disabled={totalPages === currentPage}
+              onClick={handleNextPage}
+              backgroundColor="orange"
+              color="white"
+              _hover={{
+                backgroundColor: "green",
+                color: "white",
+              }}
+            >
+              Next
+            </Button>
           </HStack>
         </Box>
       </Center>

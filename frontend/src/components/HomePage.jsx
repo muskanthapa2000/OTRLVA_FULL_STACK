@@ -24,7 +24,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const response = await fetch('https://trevelioussite.onrender.com/destination');
+        const response = await fetch('https://prussian-blue-harp-seal-coat.cyclic.cloud/data');
         const data = await response.json();
         setLocations(data);
       } catch (error) {

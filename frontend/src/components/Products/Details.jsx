@@ -15,8 +15,8 @@ const style = {
   paddingBottom: "46%",
   //    border:"2px solid red",
   position: "relative",
-  height: "0px",
-  };
+  height:"0px"
+};
 
 function Details() {
   const [data, setData] = useState([]);
@@ -26,7 +26,7 @@ function Details() {
   useEffect(() => {
     setloding(true);
     axios
-      .get(`https://trevelioussite.onrender.com/destination/${id}`)
+      .get(`https://prussian-blue-harp-seal-coat.cyclic.cloud/data/${id}`)
       .then((response) => {
         console.log(response.data);
         setData(response.data);
@@ -37,7 +37,7 @@ function Details() {
       });
 
     console.log(id);
-  }, [id]);
+  }, []);
   console.log("Data:", data);
 
   if(loading){
@@ -284,7 +284,7 @@ function Details() {
             src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyCJ50P3i-sk5hbxpI4mwppCAkio4ATadi0
                     &q=${data.name}`}
           ></iframe>
-        </div>
+</div>
  </Box>
  
 
